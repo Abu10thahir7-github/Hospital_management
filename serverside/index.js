@@ -35,7 +35,9 @@ app.use('/api/department', departmentRoutes);
 app.use('/api/departmentHead', DepartmentHeadRoutes);
 app.use('/api/employee', EmployeesRoutes);
 
-
+app.get('/',(req,res)=>{
+res.send("server running its abu")
+});
 
 app.post('/register', (req, res) => {
   const { name, email, password } = req.body;
