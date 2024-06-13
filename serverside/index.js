@@ -14,14 +14,14 @@ const DepartmentHeadRoutes = require('./Route/DepartHeadRoute');
 const app = express();
 
 // Middleware
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'https://hospitalmanage.vercel.app/' }));
 app.use(cookieParser()); 
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.static('public'));
 
 // Database Connection
-mongoose.connect('mongodb://localhost:27017/Hospital', {
+mongoose.connect('mongodb+srv://abu10thahir7:ZkNsifw1OQAGyo4J@cluster0.yxuqee9.mongodb.net/HospitalManagement', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
