@@ -1,0 +1,71 @@
+.sign,.login{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background: white;
+    justify-content: center;
+}
+.login-btn,.sign-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login,.sign {
+    /* Your existing styles */
+    transition: opacity 1s ease-out;
+    background: url('./from-bg.jpg');
+   
+}
+
+.login.logged-in {
+    opacity: 0;
+}
+.login,.sign h2{
+    color: black;
+}
+
+.content-log{
+    display: flex;
+    align-items: center;
+    background: white;
+
+    padding: 30px 46px;
+    border-radius: 15px;
+    gap: 5px;
+    box-shadow: 0px 0px 52px -23px #b33aff;
+
+}
+.content-sign{
+    display: flex;
+    align-items: center;
+    
+    padding: 30px 46px;
+    border-radius: 15px;
+    background: white;
+    gap: 5px;
+    box-shadow: 0px 0px 52px -23px #007cff;
+
+}
+
+.content-log img{
+    width: 350px;
+}
+.content-sign  img{
+    width: 350px;
+}
+
+.sign {
+    /* Your existing styles */
+    transition: opacity 1s ease-out;
+  }
+  
+  .sign.registered {
+    opacity: 0;
+  }
+  .err{
+    color: red;
+    text-align: center;
+    border-bottom: solid 2px;
+  }

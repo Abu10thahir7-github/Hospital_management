@@ -1,0 +1,25 @@
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+  }
+  .image-con{
+
+        position: relative;
+        text-align: center;
+        color: white;
+      
+  }
+  .home-img{
+    width: 100%;
+    height: 74vh;
+    object-fit: cover;
+    filter: brightness(0.4);
+  }
+  .home h1,h3{
+    text-transform: uppercase;
+  }
+  .home h1{
+    font-size: 100px;
+  }
