@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Database Connection
-mongoose.connect('mongodb://localhost:27017/Hospital', {
+// Database Connection 
+mongoose.connect('mongodb+srv://abu10thahir7:bfEB4yfWqJ363lbw@hospitalmanagement.4xboo46.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
