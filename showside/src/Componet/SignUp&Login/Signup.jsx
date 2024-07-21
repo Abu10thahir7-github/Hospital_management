@@ -5,16 +5,16 @@ import { Link, useNavigate } from "react-router-dom";
 import sign_img from "./sign-img.jpg";
 
 function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false); // New state for animation
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/register", { name, email, password })
+      .post("http://localhost:5001/register", { name, email, password })
       .then((res) => {
         setIsRegistered(true); // Trigger the animation
         setTimeout(() => {
@@ -25,7 +25,9 @@ function Signup() {
   };
 
   return (
-    <div className={`sign ${isRegistered ? 'registered' : ''}`}> {/* Apply the animation class */}
+    <div className={`sign ${isRegistered ? "registered" : ""}`}>
+      {" "}
+      {/* Apply the animation class */}
       <div className="content-sign">
         <div className="sign-content">
           <h2 className="text-center">Register</h2>
@@ -71,7 +73,7 @@ function Signup() {
             </div>
           </form>
           <Link to={"/login"}>
-          <p >Already have an account?</p>
+            <p>Already have an account?</p>
           </Link>
           <Link to={"/login"} className="">
             Login

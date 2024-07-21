@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams ,useNavigate} from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { IoMdArrowRoundBack } from "react-icons/io";
 function DepartHeadUpdate() {
@@ -25,7 +25,7 @@ function DepartHeadUpdate() {
   const fetchDescriData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/department/departmentsGet"
+        "http://localhost:5001/api/department/departmentsGet"
       );
       const options = response.data.map((department) => ({
         value: department._id,
@@ -41,7 +41,7 @@ function DepartHeadUpdate() {
     const fetchDepartment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/departmentHead/HeadGet/${id}`
+          `http://localhost:5001/api/departmentHead/HeadGet/${id}`
         );
         setEditDepartment(response.data);
         setOldImage(response.data.image);
@@ -84,7 +84,7 @@ function DepartHeadUpdate() {
       }
 
       await axios.put(
-        `http://localhost:5000/api/departmentHead/HeadUpdate/${id}`,
+        `http://localhost:5001/api/departmentHead/HeadUpdate/${id}`,
         formData
       );
       // Optionally, you can reset the state or fetch the updated data again
@@ -92,7 +92,7 @@ function DepartHeadUpdate() {
 
       // setEditDepartment(null); // Reset state if needed
       alert("Department created successfully");
-      navigate('/showHead')
+      navigate("/showHead");
     } catch (err) {
       console.log(err);
     }
@@ -100,10 +100,13 @@ function DepartHeadUpdate() {
 
   return (
     <div className="departUpdate">
-        <div className="buttn container mt-2">
-
-<button onClick={() => navigate(-1)} className="back-button btn"> <IoMdArrowRoundBack className='back-icon' />Back</button>
-</div>
+      <div className="buttn container mt-2">
+        <button onClick={() => navigate(-1)} className="back-button btn">
+          {" "}
+          <IoMdArrowRoundBack className="back-icon" />
+          Back
+        </button>
+      </div>
       <form onSubmit={handleEditDepartment}>
         <div className="title">
           <h1>Update Department Head</h1>

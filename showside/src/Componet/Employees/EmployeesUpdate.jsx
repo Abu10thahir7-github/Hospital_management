@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // import "./departhead.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
@@ -28,7 +28,7 @@ function EmployeesUpdate() {
   const fetchDescriData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/department/departmentsGet"
+        "http://localhost:5001/api/department/departmentsGet"
       );
       const options = response.data.map((department) => ({
         value: department._id,
@@ -43,7 +43,7 @@ function EmployeesUpdate() {
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/departmentHead/HeadGet"
+        "http://localhost:5001/api/departmentHead/HeadGet"
       );
       const options = response.data.map((ReportTo) => ({
         value: ReportTo._id,
@@ -58,7 +58,7 @@ function EmployeesUpdate() {
     const fetchDepartment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/employee/employeGet/${id}`
+          `http://localhost:5001/api/employee/employeGet/${id}`
         );
         setEditDepartment(response.data);
         setOldImage(response.data.image);
@@ -102,7 +102,7 @@ function EmployeesUpdate() {
       }
 
       await axios.put(
-        `http://localhost:5000/api/employee/employeUpdate/${id}`,
+        `http://localhost:5001/api/employee/employeUpdate/${id}`,
         formData
       );
       // Optionally, you can reset the state or fetch the updated data again
@@ -110,7 +110,7 @@ function EmployeesUpdate() {
 
       // setEditDepartment(null); // Reset state if needed
       alert("Department created successfully");
-      navigate('/showEmploye')
+      navigate("/showEmploye");
     } catch (err) {
       console.log(err);
     }
@@ -118,10 +118,13 @@ function EmployeesUpdate() {
 
   return (
     <div className="departUpdate">
-        <div className="buttn container mt-2">
-
-<button onClick={() => navigate(-1)} className="back-button btn"> <IoMdArrowRoundBack className='back-icon' />Back</button>
-</div>
+      <div className="buttn container mt-2">
+        <button onClick={() => navigate(-1)} className="back-button btn">
+          {" "}
+          <IoMdArrowRoundBack className="back-icon" />
+          Back
+        </button>
+      </div>
       <form onSubmit={handleEditDepartment}>
         <div className="title">
           <h1>Update Employees</h1>

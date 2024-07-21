@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import { IoMdArrowRoundBack } from "react-icons/io";
 const HeadDetail = () => {
   const [department, setDepartment] = useState([]);
@@ -11,15 +11,16 @@ const HeadDetail = () => {
   console.log(department);
   const fetchDepartment = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/departmentHead/departHead/name`, {
-        params: { name }
-      });
+      const response = await axios.get(
+        `http://localhost:5001/api/departmentHead/departHead/name`,
+        {
+          params: { name },
+        }
+      );
       console.log("API Response:", response.data); // Log API response
       setDepartment(response.data);
     } catch (err) {
-
-        setError(err.response.data);
-     
+      setError(err.response.data);
     }
   };
 
@@ -32,20 +33,25 @@ const HeadDetail = () => {
   }, [department]);
 
   return (
-    <div className='dep-detail'>
+    <div className="dep-detail">
       <div className="buttn container mt-2">
-
-      <button onClick={() => navigate(-1)} className="back-button btn"> <IoMdArrowRoundBack className='back-icon' />Back</button>
+        <button onClick={() => navigate(-1)} className="back-button btn">
+          {" "}
+          <IoMdArrowRoundBack className="back-icon" />
+          Back
+        </button>
       </div>
       <div className="title">
-        <h1 className='mb-3'>Department Head Details</h1>
+        <h1 className="mb-3">Department Head Details</h1>
       </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       {department.map((department) => (
         <div className="de-cart" key={department._id}>
           <div className="de-img">
-            {department.image && <img src={department.image} alt={department.name} />}
+            {department.image && (
+              <img src={department.image} alt={department.name} />
+            )}
           </div>
           <div className="detail-con">
             <h2>{department.name}</h2>
@@ -55,7 +61,6 @@ const HeadDetail = () => {
           </div>
         </div>
       ))}
-
     </div>
   );
 };
