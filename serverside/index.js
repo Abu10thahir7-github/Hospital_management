@@ -14,7 +14,7 @@ const app = express();
 // Middleware
 app.use(cors({
   credentials: true,
-  origin: ["https://hospitalmanage.vercel.app", "http://localhost:3000"]
+  origin: ["https://hospital-management-m0du.onrender.com", "http://localhost:3000"]
 }));
 app.use(cookieParser()); 
 app.use(express.json());
