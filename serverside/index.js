@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 // Database Connection
-mongoose.connect("mongodb+srv://abu10thahir7:ZkNsifw1OQAGyo4J@cluster0.yxuqee9.mongodb.net/Hospitalmanagement"||'mongodb://localhost:27017/Hospital', {
+mongoose.connect('mongodb://localhost:27017/Hospital', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => {
