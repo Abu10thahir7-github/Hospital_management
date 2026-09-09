@@ -12,24 +12,32 @@ const DepartmentHeadRoutes = require('./Route/DepartHeadRoute');
 const app = express();
 
 // Middleware
-app.use(cors({
-  credentials: true,
-  origin: ["https://hospital-management-m0du.onrender.com", "http://localhost:3000"]
-}));
-app.use(cookieParser()); 
+app.use(
+  cors({
+    credentials: true,
+    origin: ['https://hospital-management-m0du.onrender.com', 'http://localhost:3000'],
+  }),
+);
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Database Connection 
-mongoose.connect('mongodb+srv://abu10thahir7:bfEB4yfWqJ363lbw@hospitalmanagement.4xboo46.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch(err => {
-  console.error('Could not connect to MongoDB', err);
-});
+// Database Connection
+mongoose
+  .connect(
+    'mongodb+srv://abu10thahir7:wS6rR0Lv2ISsOMen@cluster0.yxuqee9.mongodb.net/?appName=Cluster0',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  )
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch(err => {
+    console.error('Could not connect to MongoDB', err);
+  });
 
 // Routes
 app.use('/api/department', departmentRoutes);
@@ -39,18 +47,20 @@ app.use('/api/employee', EmployeesRoutes);
 // Registration Route
 app.post('/register', (req, res) => {
   const { name, email, password } = req.body;
-  bcrypt.hash(password, 10)
+  bcrypt
+    .hash(password, 10)
     .then(hash => {
-      authModel.create({ name, email, password: hash })
-        .then(admin => res.json({ status: "success" }))
+      authModel
+        .create({ name, email, password: hash })
+        .then(admin => res.json({ status: 'success' }))
         .catch(err => {
           console.error(err);
-          res.status(500).json({ status: "error", message: "Internal server error" });
+          res.status(500).json({ status: 'error', message: 'Internal server error' });
         });
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ status: "error", message: "Internal server error" });
+      res.status(500).json({ status: 'error', message: 'Internal server error' });
     });
 });
 
@@ -62,18 +72,22 @@ app.post('/login', async (req, res) => {
     if (admin) {
       const response = await bcrypt.compare(password, admin.password);
       if (response) {
-        const token = jwt.sign({ email: admin.email, role: admin.role }, process.env.JWT_SECRET || "jwt-secret-key", { expiresIn: '1d' });
-        res.cookie("token", token);
-        return res.json({ status: "success", role: admin.role, name: admin.name });
+        const token = jwt.sign(
+          { email: admin.email, role: admin.role },
+          process.env.JWT_SECRET || 'jwt-secret-key',
+          { expiresIn: '1d' },
+        );
+        res.cookie('token', token);
+        return res.json({ status: 'success', role: admin.role, name: admin.name });
       } else {
-        return res.status(401).json({ status: "error", message: "Incorrect password" });
+        return res.status(401).json({ status: 'error', message: 'Incorrect password' });
       }
     } else {
-      return res.status(404).json({ status: "error", message: "admin not found" });
+      return res.status(404).json({ status: 'error', message: 'admin not found' });
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: "error", message: "Internal server error" });
+    return res.status(500).json({ status: 'error', message: 'Internal server error' });
   }
 });
 
@@ -81,34 +95,35 @@ app.post('/login', async (req, res) => {
 const verifyadmin = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ message: "Token missing" });
+    return res.status(401).json({ message: 'Token missing' });
   } else {
-    jwt.verify(token, process.env.JWT_SECRET || "jwt-secret-key", (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET || 'jwt-secret-key', (err, decoded) => {
       if (err) {
-        return res.status(403).json({ message: "Error on token" });
+        return res.status(403).json({ message: 'Error on token' });
       } else {
-        if (decoded.role === "admin") {
+        if (decoded.role === 'admin') {
           next();
         } else {
-          return res.status(403).json({ message: "Not admin" });
+          return res.status(403).json({ message: 'Not admin' });
         }
       }
     });
   }
-}
+};
 
 // Protected Route
 app.get('/dashboard', verifyadmin, (req, res) => {
-  res.json("Dashboard success");
+  res.json('Dashboard success');
 });
 
 // Show All Admins Route
 app.get('/showall', (req, res) => {
-  authModel.find({}, 'name email role')
+  authModel
+    .find({}, 'name email role')
     .then(admins => res.json(admins))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ status: "error", message: "Internal server error" });
+      res.status(500).json({ status: 'error', message: 'Internal server error' });
     });
 });
 
