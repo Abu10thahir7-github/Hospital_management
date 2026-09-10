@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from 'react-icons/io';
 function DepartHeadUpdate() {
   const [oldImage, setOldImage] = useState(null);
   const [DepartOption, setDepartOption] = useState([]);
@@ -10,12 +10,12 @@ function DepartHeadUpdate() {
   const [previewImage, setPreviewImage] = useState(null);
   const { id } = useParams();
   const [editDepartment, setEditDepartment] = useState({
-    name: "",
-    email: "",
-    age: "",
-    description: "",
-    departmentOption: "",
-    image: "",
+    name: '',
+    email: '',
+    age: '',
+    description: '',
+    departmentOption: '',
+    image: '',
   });
 
   useEffect(() => {
@@ -25,9 +25,9 @@ function DepartHeadUpdate() {
   const fetchDescriData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/department/departmentsGet"
+        'https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsGet',
       );
-      const options = response.data.map((department) => ({
+      const options = response.data.map(department => ({
         value: department._id,
         label: department.name,
       }));
@@ -41,7 +41,7 @@ function DepartHeadUpdate() {
     const fetchDepartment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/departmentHead/HeadGet/${id}`
+          `https://hospital-management-backend-f7q4.onrender.com/api/departmentHead/HeadGet/${id}`,
         );
         setEditDepartment(response.data);
         setOldImage(response.data.image);
@@ -52,7 +52,7 @@ function DepartHeadUpdate() {
     fetchDepartment();
   }, [id]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value, files } = e.target;
     if (files) {
       setEditDepartment({
@@ -68,31 +68,31 @@ function DepartHeadUpdate() {
     }
   };
 
-  const handleEditDepartment = async (e) => {
+  const handleEditDepartment = async e => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("name", editDepartment.name);
-      formData.append("email", editDepartment.email);
-      formData.append("age", editDepartment.age);
-      formData.append("description", editDepartment.description);
-      formData.append("departmentOption", editDepartment.departmentOption);
+      formData.append('name', editDepartment.name);
+      formData.append('email', editDepartment.email);
+      formData.append('age', editDepartment.age);
+      formData.append('description', editDepartment.description);
+      formData.append('departmentOption', editDepartment.departmentOption);
       if (editDepartment.image instanceof File) {
-        formData.append("image", editDepartment.image);
+        formData.append('image', editDepartment.image);
       } else {
-        formData.append("image", oldImage);
+        formData.append('image', oldImage);
       }
 
       await axios.put(
-        `http://localhost:5001/api/departmentHead/HeadUpdate/${id}`,
-        formData
+        `https://hospital-management-backend-f7q4.onrender.com/api/departmentHead/HeadUpdate/${id}`,
+        formData,
       );
       // Optionally, you can reset the state or fetch the updated data again
       // fetchData(); // Call a fetch function if needed
 
       // setEditDepartment(null); // Reset state if needed
-      alert("Department created successfully");
-      navigate("/showHead");
+      alert('Department created successfully');
+      navigate('/showHead');
     } catch (err) {
       console.log(err);
     }
@@ -102,7 +102,7 @@ function DepartHeadUpdate() {
     <div className="departUpdate">
       <div className="buttn container mt-2">
         <button onClick={() => navigate(-1)} className="back-button btn">
-          {" "}
+          {' '}
           <IoMdArrowRoundBack className="back-icon" />
           Back
         </button>
@@ -148,7 +148,7 @@ function DepartHeadUpdate() {
           <option value="" disabled>
             Select Department
           </option>
-          {DepartOption.map((department) => (
+          {DepartOption.map(department => (
             <option key={department.value} value={department.label}>
               {department.label}
             </option>

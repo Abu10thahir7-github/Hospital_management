@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 function DepartmentCreate() {
   const navigate = useNavigate();
   const [prevImage, setPrevImage] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
-    year: "",
-    description: "",
+    name: '',
+    year: '',
+    description: '',
     image: null,
   });
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -20,7 +20,7 @@ function DepartmentCreate() {
     });
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     setFormData({
       ...formData,
       image: e.target.files[0],
@@ -28,24 +28,24 @@ function DepartmentCreate() {
     setPrevImage(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("year", formData.year);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("image", formData.image);
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('year', formData.year);
+    formDataToSend.append('description', formData.description);
+    formDataToSend.append('image', formData.image);
 
     axios
       .post(
-        "http://localhost:5001/api/department/departmentsAdd",
-        formDataToSend
+        'https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsAdd',
+        formDataToSend,
       )
-      .then((response) => {
+      .then(response => {
         console.log(response.data);
-        navigate("/showAllDepartment");
+        navigate('/showAllDepartment');
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -54,7 +54,7 @@ function DepartmentCreate() {
     <div className="departCreate">
       <div className="container">
         <button onClick={() => navigate(-1)} className="back-button btn">
-          {" "}
+          {' '}
           <IoMdArrowRoundBack className="back-icon" />
           Back
         </button>

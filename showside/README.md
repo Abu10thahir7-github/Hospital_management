@@ -10,7 +10,7 @@ const [departments, setDepartments] = useState([]);
 const navigate = useNavigate()
 const fetchData = async () => {
 try {
-const response = await axios.get("http://localhost:5001/api/department/departmentsGet");
+const response = await axios.get("https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsGet");
 setDepartments(response.data);
 } catch (err) {
 console.log(err);
@@ -23,7 +23,7 @@ navigate(`/updateDepartment/${id}`);
 
 const handleDeleteDepartment = async (id) => {
 try {
-await axios.delete(`http://localhost:5001/api/department/departmentsDelete/${id}`);
+await axios.delete(`https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsDelete/${id}`);
 fetchData();
 } catch (err) {
 console.log(err);

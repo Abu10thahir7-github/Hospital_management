@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import { useNavigate } from "react-router-dom";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 function DepartHeadCreate() {
   const navigate = useNavigate();
   const [DepartOption, setDepartOption] = useState([]);
   const [prevImage, setPrevImage] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    age: "",
-    description: "",
-    departmentOption: "", // Ensure this matches the select element's name attribute
+    name: '',
+    email: '',
+    age: '',
+    description: '',
+    departmentOption: '', // Ensure this matches the select element's name attribute
     image: null,
   });
 
@@ -23,9 +23,9 @@ function DepartHeadCreate() {
   const fetchDescriData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/department/departmentsGet"
+        'https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsGet',
       );
-      const options = response.data.map((department) => ({
+      const options = response.data.map(department => ({
         value: department._id,
         label: department.name,
       }));
@@ -35,14 +35,14 @@ function DepartHeadCreate() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
   };
-  const handleFileChange = (e) => {
+  const handleFileChange = e => {
     const file = e.target.files[0];
     if (file) {
       setFormData({
@@ -52,23 +52,26 @@ function DepartHeadCreate() {
       setPrevImage(URL.createObjectURL(file));
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     const formDataToSend = new FormData();
-    formDataToSend.append("name", formData.name);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("age", formData.age);
-    formDataToSend.append("image", formData.image);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("departmentOption", formData.departmentOption);
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('age', formData.age);
+    formDataToSend.append('image', formData.image);
+    formDataToSend.append('description', formData.description);
+    formDataToSend.append('departmentOption', formData.departmentOption);
 
     axios
-      .post("http://localhost:5001/api/departmentHead/HeadAdd", formDataToSend)
-      .then((response) => {
+      .post(
+        'https://hospital-management-backend-f7q4.onrender.com/api/departmentHead/HeadAdd',
+        formDataToSend,
+      )
+      .then(response => {
         console.log(response.data);
-        navigate("/showHead");
+        navigate('/showHead');
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -77,7 +80,7 @@ function DepartHeadCreate() {
     <div className="headCreate">
       <div className="buttn container mt-2">
         <button onClick={() => navigate(-1)} className="back-button btn">
-          {" "}
+          {' '}
           <IoMdArrowRoundBack className="back-icon" />
           Back
         </button>
@@ -133,20 +136,14 @@ function DepartHeadCreate() {
           <option value="" disabled>
             Select Department
           </option>
-          {DepartOption.map((department) => (
+          {DepartOption.map(department => (
             <option key={department.value} value={department.label}>
               {department.label}
             </option>
           ))}
         </select>
         <div className="create-Image">
-          <input
-            className="file"
-            type="file"
-            name="image"
-            id="image"
-            onChange={handleFileChange}
-          />
+          <input className="file" type="file" name="image" id="image" onChange={handleFileChange} />
           {prevImage && <img src={prevImage} alt="Preview" />}
         </div>
         <button type="submit">Create</button>

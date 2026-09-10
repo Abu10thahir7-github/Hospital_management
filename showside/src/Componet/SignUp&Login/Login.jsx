@@ -22,7 +22,7 @@ function Login({ adminName }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5001/login", { email, password })
+      .post("https://hospital-management-backend-f7q4.onrender.com/login", { email, password })
       .then((res) => {
         console.log(res.data.name);
         setName(res.data.name);

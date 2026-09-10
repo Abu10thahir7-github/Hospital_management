@@ -1,32 +1,36 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./Log&Sig.css";
-import { Link, useNavigate } from "react-router-dom";
-import sign_img from "./sign-img.jpg";
+import React, { useState } from 'react';
+import axios from 'axios';
+import './Log&Sig.css';
+import { Link, useNavigate } from 'react-router-dom';
+import sign_img from './sign-img.jpg';
 
 function Signup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isRegistered, setIsRegistered] = useState(false); // New state for animation
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     axios
-      .post("http://localhost:5001/register", { name, email, password })
-      .then((res) => {
+      .post('https://hospital-management-backend-f7q4.onrender.com/register', {
+        name,
+        email,
+        password,
+      })
+      .then(res => {
         setIsRegistered(true); // Trigger the animation
         setTimeout(() => {
-          navigate("/login");
+          navigate('/login');
         }, 1000); // Adjust the timeout to match your animation duration
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   return (
-    <div className={`sign ${isRegistered ? "registered" : ""}`}>
-      {" "}
+    <div className={`sign ${isRegistered ? 'registered' : ''}`}>
+      {' '}
       {/* Apply the animation class */}
       <div className="content-sign">
         <div className="sign-content">
@@ -40,7 +44,7 @@ function Signup() {
                 autoComplete="off"
                 name="name"
                 className="form-control rounded-0"
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
               />
             </div>
 
@@ -52,7 +56,7 @@ function Signup() {
                 autoComplete="off"
                 name="email"
                 className="form-control rounded-0"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </div>
 
@@ -63,7 +67,7 @@ function Signup() {
                 name="password"
                 required
                 className="form-control rounded-0"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </div>
             <div className="sign-btn">
@@ -72,10 +76,10 @@ function Signup() {
               </button>
             </div>
           </form>
-          <Link to={"/login"}>
+          <Link to={'/login'}>
             <p>Already have an account?</p>
           </Link>
-          <Link to={"/login"} className="">
+          <Link to={'/login'} className="">
             Login
           </Link>
         </div>

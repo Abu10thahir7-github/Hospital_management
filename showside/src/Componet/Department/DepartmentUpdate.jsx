@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from 'react-icons/io';
 function DepartmentUpdate() {
   const [oldImage, setOldImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const { id } = useParams();
   const [editDepartment, setEditDepartment] = useState({
-    name: "",
-    year: "",
-    description: "",
-    image: "",
+    name: '',
+    year: '',
+    description: '',
+    image: '',
   });
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ function DepartmentUpdate() {
     const fetchDepartment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/department/departmentsGet/${id}`
+          `https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsGet/${id}`,
         );
         setEditDepartment(response.data);
         setOldImage(response.data.image);
@@ -30,7 +30,7 @@ function DepartmentUpdate() {
     fetchDepartment();
   }, [id]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value, files } = e.target;
     if (files) {
       setEditDepartment({
@@ -46,29 +46,29 @@ function DepartmentUpdate() {
     }
   };
 
-  const handleEditDepartment = async (e) => {
+  const handleEditDepartment = async e => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("name", editDepartment.name);
-      formData.append("year", editDepartment.year);
-      formData.append("description", editDepartment.description);
+      formData.append('name', editDepartment.name);
+      formData.append('year', editDepartment.year);
+      formData.append('description', editDepartment.description);
       if (editDepartment.image instanceof File) {
-        formData.append("image", editDepartment.image);
+        formData.append('image', editDepartment.image);
       } else {
-        formData.append("image", oldImage);
+        formData.append('image', oldImage);
       }
 
       await axios.put(
-        `http://localhost:5001/api/department/departmentsUpdate/${id}`,
-        formData
+        `https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsUpdate/${id}`,
+        formData,
       );
       // Optionally, you can reset the state or fetch the updated data again
       // fetchData(); // Call a fetch function if needed
 
       // setEditDepartment(null); // Reset state if needed
-      alert("Department created successfully");
-      navigate("/showAllDepartment");
+      alert('Department created successfully');
+      navigate('/showAllDepartment');
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +78,7 @@ function DepartmentUpdate() {
     <div className="departUpdate">
       <div className="buttn container mt-2">
         <button onClick={() => navigate(-1)} className="back-button btn">
-          {" "}
+          {' '}
           <IoMdArrowRoundBack className="back-icon" />
           Back
         </button>

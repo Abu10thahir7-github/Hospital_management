@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
 // import "./departhead.css";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 function EmployeesUpdate() {
   const [oldImage, setOldImage] = useState(null);
@@ -12,13 +12,13 @@ function EmployeesUpdate() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [editDepartment, setEditDepartment] = useState({
-    name: "",
-    email: "",
-    age: "",
-    description: "",
-    departmentOption: "",
-    reportTo: "",
-    image: "",
+    name: '',
+    email: '',
+    age: '',
+    description: '',
+    departmentOption: '',
+    reportTo: '',
+    image: '',
   });
   useEffect(() => {
     fetchDescriData();
@@ -28,9 +28,9 @@ function EmployeesUpdate() {
   const fetchDescriData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/department/departmentsGet"
+        'https://hospital-management-backend-f7q4.onrender.com/api/department/departmentsGet',
       );
-      const options = response.data.map((department) => ({
+      const options = response.data.map(department => ({
         value: department._id,
         label: department.name,
       }));
@@ -43,9 +43,9 @@ function EmployeesUpdate() {
   const fetchReportData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/departmentHead/HeadGet"
+        'https://hospital-management-backend-f7q4.onrender.com/api/departmentHead/HeadGet',
       );
-      const options = response.data.map((ReportTo) => ({
+      const options = response.data.map(ReportTo => ({
         value: ReportTo._id,
         label: ReportTo.name,
       }));
@@ -58,7 +58,7 @@ function EmployeesUpdate() {
     const fetchDepartment = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/employee/employeGet/${id}`
+          `https://hospital-management-backend-f7q4.onrender.com/api/employee/employeGet/${id}`,
         );
         setEditDepartment(response.data);
         setOldImage(response.data.image);
@@ -69,7 +69,7 @@ function EmployeesUpdate() {
     fetchDepartment();
   }, [id]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = e => {
     const { name, value, files } = e.target;
     if (files) {
       setEditDepartment({
@@ -85,32 +85,32 @@ function EmployeesUpdate() {
     }
   };
 
-  const handleEditDepartment = async (e) => {
+  const handleEditDepartment = async e => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("name", editDepartment.name);
-      formData.append("email", editDepartment.email);
-      formData.append("age", editDepartment.age);
-      formData.append("description", editDepartment.description);
-      formData.append("departmentOption", editDepartment.departmentOption);
-      formData.append("reportTo", editDepartment.reportTo);
+      formData.append('name', editDepartment.name);
+      formData.append('email', editDepartment.email);
+      formData.append('age', editDepartment.age);
+      formData.append('description', editDepartment.description);
+      formData.append('departmentOption', editDepartment.departmentOption);
+      formData.append('reportTo', editDepartment.reportTo);
       if (editDepartment.image instanceof File) {
-        formData.append("image", editDepartment.image);
+        formData.append('image', editDepartment.image);
       } else {
-        formData.append("image", oldImage);
+        formData.append('image', oldImage);
       }
 
       await axios.put(
-        `http://localhost:5001/api/employee/employeUpdate/${id}`,
-        formData
+        `https://hospital-management-backend-f7q4.onrender.com/api/employee/employeUpdate/${id}`,
+        formData,
       );
       // Optionally, you can reset the state or fetch the updated data again
       // fetchData(); // Call a fetch function if needed
 
       // setEditDepartment(null); // Reset state if needed
-      alert("Department created successfully");
-      navigate("/showEmploye");
+      alert('Department created successfully');
+      navigate('/showEmploye');
     } catch (err) {
       console.log(err);
     }
@@ -120,7 +120,7 @@ function EmployeesUpdate() {
     <div className="departUpdate">
       <div className="buttn container mt-2">
         <button onClick={() => navigate(-1)} className="back-button btn">
-          {" "}
+          {' '}
           <IoMdArrowRoundBack className="back-icon" />
           Back
         </button>
@@ -160,7 +160,7 @@ function EmployeesUpdate() {
           <option value="" disabled>
             Select Department
           </option>
-          {DepartOption.map((department) => (
+          {DepartOption.map(department => (
             <option key={department.value} value={department.label}>
               {department.label}
             </option>
@@ -176,7 +176,7 @@ function EmployeesUpdate() {
           <option value="" disabled>
             Select ReportTo
           </option>
-          {ReportOption.map((ReportTo) => (
+          {ReportOption.map(ReportTo => (
             <option key={ReportTo.value} value={ReportTo.label}>
               {ReportTo.label}
             </option>
