@@ -17,7 +17,7 @@ function Login({ adminName }) {
 
   useEffect(() => {
     adminName(name);
-  }, [name]);
+  }, [name,adminName]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

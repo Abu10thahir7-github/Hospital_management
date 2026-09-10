@@ -7,23 +7,22 @@ const DepartmentDetail = () => {
   const [error, setError] = useState([]);
   const { name } = useParams();
   const navigate = useNavigate();
-
-  const fetchDepartment = async () => {
-    try {
-      const response = await axios.get(
-        `https://hospital-management-backend-f7q4.onrender.com/api/department/departments/name`,
-        {
-          params: { name },
-        },
-      );
-      console.log('API Response:', response.data); // Log API response
-      setDepartment(response.data);
-    } catch (err) {
-      setError(err.response.data);
-    }
-  };
-
   useEffect(() => {
+    const fetchDepartment = async () => {
+      try {
+        const response = await axios.get(
+          `https://hospital-management-backend-f7q4.onrender.com/api/department/departments/name`,
+          {
+            params: { name },
+          },
+        );
+        console.log('API Response:', response.data); // Log API response
+        setDepartment(response.data);
+      } catch (err) {
+        setError(err.response.data);
+      }
+    };
+
     fetchDepartment();
   }, [name]);
 

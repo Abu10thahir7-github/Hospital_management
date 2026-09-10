@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Department from './Componet/Department/Department';
@@ -44,7 +44,7 @@ const App = () => {
         <Route path='/createEmploye' element={<EmployeesCreate />} />
         <Route path='/showEmploye' element={<Employees />} />
         <Route path='/updateEmploye/:id' element={<EmployeesUpdate />} />
-        <Route path='/HeadDetail/:name' element={<HeadDetail />} /> 
+        <Route path='/HeadDetail/:name' element={<HeadDetail />} />
       </Routes>
     </div>
   );
